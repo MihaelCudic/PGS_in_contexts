@@ -1,0 +1,133 @@
+---
+##########################################################################################################
+# File Locations
+########################################################################################################## 
+
+prs_file:  # Insert file location to PGS
+env_file:  # Insert file location to covariates
+n_bootstrap: 10000
+max_random: 100
+
+##########################################################################################################
+# Variable Names and Stratification Specifications
+##########################################################################################################
+phen_params:
+    OB: 
+        title: 'OB'
+        phen: 'OB'
+        pgs: 'pgs_bmi'
+        emerge_cut: .03
+        pgs_flip: False
+    T2D:
+        title: 'T2D'
+        phen: 'T2D'
+        pgs: 'pgs_T2D'
+        emerge_cut: .02
+        pgs_flip: False
+    CAD:
+        title: 'CAD'
+        phen: 'CAD'
+        pgs: 'pgs_CAD'
+        emerge_cut: .05
+        pgs_flip: False
+    AST:
+        title: 'AST'
+        phen: 'AST'
+        pgs: 'pgs_ast'
+        emerge_cut: .05
+        pgs_flip: True
+    HCA:
+        title: 'HC'
+        phen: 'HCA'
+        pgs: 'pgs_chol'
+        emerge_cut: .03
+        pgs_flip: False
+    AFIB:
+        title: 'AFIB'
+        phen: 'AFIB'
+        pgs: 'pgs_.afib'
+        emerge_cut: .03
+        pgs_flip: True
+    MDD:
+        title: 'MDD'
+        phen: 'DEP'
+        pgs: 'pgs_.mdd2023'
+        emerge_cut: .01
+        pgs_flip: False
+    
+
+covars:
+  - 'Sex'
+  - 'Age'
+  - 'Household_Income'
+  - 'Alcohol_Intake'
+  - 'Townsend_Deprivation_Index'
+  - 'Current_Smoking'
+
+covars_sync:
+  - 'Sex'
+  - 'Age'
+  - 'Alcohol Intake'
+  - 'Smoking History'
+  - 'Income'
+  - 'Deprivation'
+
+labels_shorthand:
+    - 'Females'
+    - 'Males'
+    - 'Ages(40-49)'
+    - 'Ages(50-59)'
+    - 'Ages(60)'
+    - 'Alc. Int.(Low)'
+    - 'Alc. Int.(Med.)'
+    - 'Alc. Int.(High)'
+    - 'Smoking(No)'
+    - 'Smoking(Yes)'
+    - 'Inc.(Low)'
+    - 'Inc.(Med.)'
+    - 'Inc.(High)'
+    - 'Depriv.(Low)'
+    - 'Depriv.(Med.)'
+    - 'Depriv.(High)'
+
+labels:
+    - 'Female'
+    - 'Male'
+    - 'Age: 40-49'
+    - 'Age: 50-59'
+    - 'Age: 60+'
+    - 'Monthly Alcohol: ≤1'
+    - 'Monthly Alcohol: 1-8'
+    - 'Monthly Alcohol: ≥12'
+    - 'Smoking History: No'
+    - 'Smoking History: Yes'
+    - 'House. Income: ≤18k'
+    - 'House. Income: 18k-52k'
+    - 'House. Income: ≥52k'
+    - 'Towns. Depriv.: ≤-3'
+    - 'Towns. Depriv.: -3-0'
+    - 'Towns. Depriv.: ≥0'
+    
+bin_defs: # definitions of strata
+  Sex: 
+    Female: 0
+    Male: 1
+  Age: 
+    - [40, 49]
+    - [50, 59]
+    - [60, .inf]
+  Alcohol_Intake:
+    '<1 per month': [5, 6]
+    '1-8 per month': [3, 4]
+    '>12 per month': [1, 2]
+  Current_Smoking: 
+    Never: 0
+    Current or Prior: [1, 2]
+  Household_Income: 
+    "<18k": 1
+    "18k to 52k": [2, 3]
+    ">52k": [4, 5]
+  Townsend_Deprivation_Index: 
+    - [-.inf, -3]
+    - [-3, 0]
+    - [0, .inf]
